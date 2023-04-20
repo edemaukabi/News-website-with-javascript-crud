@@ -1,0 +1,2 @@
+In this implementation, I built a news application performing the crud operations of Create, Post, Put and Delete using HTML, CSS, Vanilla Javascript without any library or framework.
+To run this program, simply clone the application, run liveserver or navigate to the index.html file in ./src/pages/index.html. From here you can navigate to other pages.
