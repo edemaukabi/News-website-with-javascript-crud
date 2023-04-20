@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="../styles/index.css" />
+
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <!-- <script src="script.js" defer></script> -->
+
+  </head>
+  <body>
+    <div class="heading-container">
+      <a href="./index.html"><h4>Crecental News Live</h4></a>
+    </div>
+
+    <!-- Form -->
+    <section class="box">
+        <div class="close">&times;</div>
+        
+        <form id="form" class="registration-box">
+          <h2>Edit News</h2>
+          <div class="input-control">
+            <label for="fullname">Full Name (Author)</label>
+            <input id="fullname" name="fullname" type="text" />
+            <div class="error"></div>
+          </div>
+          <div class="input-control">
+            <label for="title">News Title</label>
+            <input id="title" name="title" type="text" />
+            <div class="error"></div>
+          </div>
+          <!-- <div class="input-control">
+            <label for="imageFile">Password again</label>
+            <input id="imageFile" type="file" />
+            <div class="error"></div>
+          </div> -->
+          <div class="input-control">
+            <label for="newsLink">News URL</label>
+            <input type="url" id="newsLink" name="newsLink" />
+            <div class="error"></div>
+          </div>
+          <button type="submit" class="btnSubmit">Update</button>
+        </form>
+
+        <!-- Add these lines below to your current code -->
+        <div class="confirmation-box" style="display: none">
+          <h1>News Updated</h1>
+          <div class="body-text"></div>
+          <p>You can close this popup, Thank You.</p>
+          <button class="btnClose">Close</button>
+        </div>
+        <!-- end -->
+      </section>
+
+      
+
+    <section class="container-wrap">
+        
+        <div id="comments" class="comments-card">
+
+        <div class="wrapper">
+            <button class="news-edit">Update news</button>
+            <i class="fa-solid fa-arrow-left button" id="prev"></i>
+            <div class="image-container">
+              <div class="carousel">
+                <img src="../../images/image1.jpg" alt="" />
+                 <img src="../../images/image2.jpg" alt="" />
+                <img src="../../images/image3.jpg" alt="" />
+                <img src="../../images/image4.jpg" alt="" />
+              </div>
+              <i class="fa-solid fa-arrow-right button" id="next"></i>
+            </div>
+          </div>
+
+          <div class="comments-heading">
+            <p class="comments-headtext">Comments</p>
+            <button class="comments-add">Add comment</button>
+        </div>
+
+        <!-- Comment Form --> 
+    <div class="write-comment-wrap">
+        <div class="write-comment-secondary">
+            <form class="write-comment-form">
+                <div>
+                    <label for="commentAuthor">Full Name</label>
+                    <input id="commentAuthor" name="commentAuthor" type="text" placeholder="What's your name?" />
+                    <div class="error"></div>
+                </div>
+                <div>
+                    <label for="myComment">Comment</label>
+                    <textarea id="myComment" name="myComment" placeholder="What's on your mind?"></textarea>
+                    <div class="error"></div>
+                </div>
+                <br/>
+                <button type="submit" class="btnSubmit">Send</button>
+            </form>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <!-- Script -->
+    <script src="../js/newsDetail.js"></script>
+    <!-- <script src="../js/form.js"></script> -->
+    <script src="../js/editNewsForm.js"></script>
+    <script src="../js/comments.js" defer></script>
+  </body>
+</html>

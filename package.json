@@ -1,0 +1,11 @@
+{
+  "name": "news-app",
+  "version": "1.0.0",
+  "description": "A news app built with vanilla javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Edema",
+  "license": "ISC"
+}

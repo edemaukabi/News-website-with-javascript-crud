@@ -1,0 +1,594 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  body {
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  img {
+    width: 100%;
+    height: 30vh;
+    object-fit: cover;
+  }
+  .heading-container {
+    background-color: #119bf6;
+    color: #ffffff;
+    font-size: 2.5em;
+    padding: 0.8em 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 50px 0 rgba(2, 0, 31, 0.3);
+    z-index: 100;
+  }
+  .heading-container h4 {
+    font-weight: 600;
+    font-size: 40px;
+    letter-spacing: 5px;
+  }
+  .options-container {
+    margin: 2em 0 2em 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1em;
+    text-align: center;
+  }
+  .option {
+    background-color: #d5d5d5;
+    border: none;
+    padding: 0.8em 1.5em;
+    border-radius: 0.5em;
+    border: none;
+    text-transform: capitalize;
+  }
+  .container {
+    width: 90%;
+    margin: 0 auto;
+    /* margin-top: 10em; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1em;
+  }
+  .news-card {
+    display: grid;
+    position: relative;
+    grid-template-rows: auto 1fr;
+    box-shadow: 0 0 15px rgba(85, 85, 85, 0.2);
+    margin: 1em 0;
+    border-radius: 15px;
+  }
+  .news-card img {
+    border-radius: 15px 15px 0 0;
+  }
+  .news-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1em;
+    font-size: 15px;
+  }
+  .news-title {
+    font-weight: 600;
+    color: #0b0028;
+  }
+  .news-description {
+    color: #6f6f6f;
+    text-align: justify;
+    margin: 0.8em 0 1em 0;
+  }
+
+  .news-edit {
+    padding: 2px 15px;
+  color: white;
+  background-color: #119bf6;
+  border: none;
+  border-radius: 1rem;
+  font-size: 12px;
+  /* margin-left: auto;
+  margin-right: 2px; */
+  margin: auto 2px auto auto;
+  height: fit-content
+  }
+
+  .view-button {
+    position: relative;
+    text-decoration: none;
+    background-color: #cb202d;
+    color: #ffffff;
+    width: 7em;
+    text-align: center;
+    padding: 0.3em 0.2em;
+    border-radius: 5px;
+  }
+  .active {
+    background-color:  #119bf6;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  @media only screen and (max-width: 768px) {
+    .container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+.container-wrap{
+  display: flex;
+  flex-direction: column;
+  width: 50vw
+}
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    background: #fff;
+    align-items: center;
+    justify-content: space-around;
+    margin: 1em auto 1em auto;
+    position: relative;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 1em;
+    
+  }
+
+  .wrapper i.button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 36px;
+    width: 36px;
+    background-color: #343f4f;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 36px;
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s linear;
+    z-index: 10;
+    cursor: pointer;
+  }
+  i.button:active {
+    transform: scale(0.94) translateY(-50%);
+  }
+  i#prev {
+    left: 25px;
+  }
+  i#next {
+    right: 25px;
+  }
+  .image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 320px;
+    /* max-width: 500px; */
+    width: 100%;
+    overflow: hidden;
+  }
+  .image-container .carousel {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    transition: all 0.4s ease;
+  }
+  .carousel > img {
+    height: 100%;
+    width: 100%;
+    border-radius: 18px;
+    border: 10px solid #fff;
+    object-fit: cover;
+  }
+
+
+  /* form */
+
+/* .btnOpen{
+    margin-top: 8em;
+} */
+
+.box{
+    position: relative;
+    border-radius: 12px;
+    width: 100%; 
+    margin: 10em auto;
+    text-align: center;
+    padding: 5px;
+    background-color: #fcfcfc;
+    display: none; 
+}
+
+.box-edit {
+  position: relative;
+    border-radius: 12px;
+    margin: 10em auto;
+    text-align: center;
+    padding: 5px;
+    background-color: #fcfcfc;
+    display: none;
+}
+/* Head part of user icon */
+.circle .register-head{
+    display: inline-block;
+    width: 18px;
+    height: 20px;
+    margin: 0 auto;
+    margin-top: 6px;
+    border-radius: 50%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+}
+/* Body part of user icon */
+.circle .register-body{
+    display: inline-block;
+    width: 35px;
+    margin: 0 auto;
+    margin-top: 26px;
+    height: 25px;
+    border-radius: 50%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+}
+.close{
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    right: 0;
+    color: tomato;
+    font-size: 34px;
+}
+.close:hover{
+    background-color: red;
+    border-radius: 0 12px 0 0;
+    color: #fcfcfc;
+    cursor: pointer;
+}
+.registration-box{
+    margin-top: 5px; 
+}
+
+h1{
+    margin-top: 28px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-weight: 300;
+}
+
+.body-text{
+    font-size: 17px;
+    line-height: 25px;
+}
+p{
+    margin-top: 28px;
+    font-size: 22px;
+}
+.btnOpen {
+    margin-top: 8em;
+    display: block;
+    margin: 8em auto auto;
+    /* margin-top: 25px; */
+    padding: 10px 43px 10px 43px;
+    border: none;
+    border-radius: 32px;
+    font-size: 20px;
+    background-color: rgb(1, 170, 133);
+    color: #fcfcfc;
+}
+.btnOpen:hover, .btnOpen:focus, .btnOpen:active{
+    background-color: rgb(3, 145, 144);
+    outline: rgb(2, 137, 108) 2px solid;
+    cursor: pointer;
+}
+/* Add these lines below to your current code  */
+/* Right side of the check mark icon */
+/* .circle .slant-right{
+     width: 29px;
+     top: 27px;
+     left: 16px;
+     transform: rotate(-45deg);
+     display: none;
+     animation: slant-animate 1s ease-in forwards;
+} */
+
+/* Left side of the check mark sign */
+/* .circle .slant-left{
+    width: 16px;
+    top: 32px;
+    left: 8px;
+    transform: rotate(50deg);
+    display: none;
+    animation: slant-animate .8s ease-in forwards; 
+} */
+
+@keyframes slant-animate{
+    to{
+        background-color: #fff;
+    }
+}
+/* end */
+
+
+/* For small devices */
+@media(max-width: 350px){
+.box{
+    width: 90%;
+}
+}
+
+
+#form {
+  width: 300px;
+  /* margin: 20vh auto 0 auto; */
+  padding: 20px;
+  background-color: whitesmoke;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+#form h1 {
+  color: #0f2027;
+  text-align: center;
+}
+
+#form button {
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  color: white;
+  background-color: #119bf6;
+  border: none;
+  border-radius: 4px;
+}
+
+.input-control {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-control input {
+  border: 2px solid #f0f0f0;
+border-radius: 4px;
+display: block;
+font-size: 12px;
+padding: 10px;
+width: 100%;
+}
+
+.input-control input:focus {
+  outline: 0;
+}
+
+.input-control.success input {
+  border-color: #09c372;
+}
+
+.input-control.error input {
+  border-color: #ff3860;
+}
+
+.input-control .error {
+  color: #ff3860;
+  font-size: 9px;
+  height: 13px;
+}
+
+.comments-card {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 10em;
+  margin-right: 2rem;
+  overflow: scroll;
+}
+
+.comments-heading {
+  display: flex;
+  /* justify-content: flex-start; */
+  margin-top: 2px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+.comment-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+/* .comment-row > p {
+  margin: 0;
+  font-size: 14px;
+} */
+
+.comment-row  span {
+  margin-left: 10px;
+  font-size: 12px;
+  color: #999;
+}
+
+
+.comments-delete {
+  margin-left: 10px;
+  padding: 2px 15px;
+  color: white;
+  background-color: #ff3860;
+  border: none;
+  border-radius: 1rem;
+  font-size: 12px;
+}
+
+.comments-edit {
+  margin-left: 10px;
+  padding: 2px 15px;
+  color: white;
+  background-color: #389fff;
+  border: none;
+  border-radius: 1rem;
+  font-size: 12px;
+}
+
+.comments-add {
+  padding: 2px 15px;
+  color: white;
+  background-color: #34cfb7;
+  border: none;
+  border-radius: 1rem;
+  font-size: 12px;
+  /* margin-left: auto;
+  margin-right: 2px; */
+  margin: auto 2px auto auto;
+  height: fit-content
+  
+}
+
+.comment-text {
+  font-size: 18px;
+  color: #999;
+  font-style: italic;
+}
+
+.comment-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-author {
+  margin: 0;
+  font-size: 14px;
+  color: #999;
+}
+
+.comment-time {
+  /* margin-left: 10px; */
+  font-size: 12px;
+  color: #999;
+  margin-top: 2px;
+}
+
+.comment-button {
+  display: flex;
+  margin-left: auto;
+  margin: 0px 0px 0px 0px;
+  padding: 0px
+}
+
+.write-comment-wrap {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.write-comment-wrap-hidden {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  display: none;
+}
+
+.write-comment-secondary {
+  width: 100%;
+  border-width: 1px;
+  background-color: #6b7280;
+  color: #fff;
+  padding: 1.25rem;
+}
+
+/* Form input field */
+.write-comment-wrap input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Form input field focus state */
+.write-comment-wrap input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Form textarea field */
+.write-comment-wrap textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  resize: vertical;
+}
+
+/* Form textarea field focus state */
+.write-comment-wrap textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Form submit button */
+.write-comment-wrap button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: #17a2b8;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+/* Form submit button hover state */
+.write-comment-wrap button:hover {
+  background-color: #117a8b;
+}
+
+.write-comment-wrap button:hover {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(23, 162, 184, 0.5);
+}
+
+
+.comment-update-form {
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start;
+}
+
+.comment-text-update {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.comment-update-btn {
+  background-color: #389fff; 
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+}
