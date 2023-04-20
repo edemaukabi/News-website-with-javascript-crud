@@ -3,7 +3,9 @@ const commentBox = document.querySelector(".write-comment-wrap");
 const commentForm = document.querySelector(".write-comment-form");
 const commentAddBtn = document.querySelector(".comments-add");
 const commentTextUpdated = document.querySelector(".comment-text-update");
-const commentUpdateBtn = document.querySelector(".comment-update-btn");
+const commentUpdateForm = document.querySelector(".comment-update-form");
+let commentEditBtn;
+let commentTextNow;
 
 const commentAuthor = document.getElementById('commentAuthor');
 const commentContent = document.getElementById('myComment');
@@ -34,6 +36,7 @@ const generateCommentUI = (articles) => {
 };
 
 
+
 const getComments = async () => {
   let response = await fetch(commentsURL);
  
@@ -44,6 +47,10 @@ const getComments = async () => {
   let data = await response.json();
   return data;
 };
+
+commentAddBtn.addEventListener("click", () => {
+
+});
 
 const getComment = async () => {
     let response = await fetch(commentURL);
@@ -65,11 +72,31 @@ const commentErrorContent = {
 
 commentAddBtn.addEventListener('click', async () => {
     commentBox.style.display="flex";
-    
+    elm = await waitForElm('.comment-update-form');
+    elm.addEventListener('click', submitFunc)
+    console.log(elm)
+    commentEditBtn = await waitForElm('.comments-edit');
+    console.log(commentEditBtn)
+    commentTextNow = await waitForElm('.comment-text');
+    commentEditBtn.addEventListener("click", () => {
+        elm.style.display="flex";
+    });
 })
 
 
 let elm;
+
+const deleteComment = async (id) => {
+    let response = await fetch(`https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/comments/${id}`, {
+        method: 'DELETE'
+    });
+    if (!response.ok) {
+        alert("Data unavailable at the moment. Please try again later");
+        return false;
+        }
+    let data = await response.json();
+    return data;
+}
 
 const submitFunc = e => {
     e.preventDefault();
@@ -153,13 +180,14 @@ const setCommentSuccess = element => {
 };
 
 const validateCommentUpdate = () => {
-    const commentUpdateValue = commentTextUpdated.value.trim();
+    console.log("here", commentTextNow)
+    const commentUpdateValue = commentTextNow.value
 
     if(commentUpdateValue === '') {
-        setCommentError(commentTextUpdated, "You can't post an empty comment");
+        setCommentError(commentTextNow, "You can't post an empty comment");
         commentErrorContent.commentUpdate = true;
     } else {
-        setCommentSuccess(commentTextUpdated);
+        setCommentSuccess(commentTextNow);
         commentErrorContent.commentUpdate = false;
     }
 };
