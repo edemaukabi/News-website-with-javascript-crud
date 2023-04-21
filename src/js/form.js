@@ -1,19 +1,13 @@
 let btnOpen = document.querySelector(".btnOpen");
 
 let box = document.querySelector(".box");
-// let container = document.querySelector(".container");
 let optionsContainer = document.querySelector(".options-container");
 let body = document.querySelector("body");
 let firstSection = document.querySelectorAll(".first-section");
-//Note: this is not a class but a tag name. 
-//That is why it is not referenced with the "." sign
 let close = document.querySelector(".close");
 
 let registerHead = document.querySelector(".register-head");
 let registerBody = document.querySelector(".register-body");
-let slantLeft = document.querySelector(".slant-left");
-let slantRight = document.querySelector(".slant-right");
-// let first_name = document.querySelector(".first_name");
 let last_name = document.querySelector(".last_name");
 let bodyText = document.querySelector(".body-text");
 let btnClose = document.querySelector(".btnClose");
@@ -52,7 +46,6 @@ const form = document.getElementById('form');
 const fullname = document.getElementById('fullname');
 const email = document.getElementById('email');
 const title = document.getElementById('title');
-// const imageFile = document.getElementById('imageFile');
 const newsLink = document.getElementById('newsLink');
 
 const url = "https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/"
@@ -73,13 +66,6 @@ form.addEventListener('submit', e => {
     }else {
     const formData = {"author": fullname.value, "email": email.value, "title": title.value, "url": newsLink.value}
 
-
-    // formData.append('author', fullname.value);
-    // formData.append('email', email.value);
-    // formData.append('title', title.value);
-    // formData.append('url', newsLink.value);
-    // formData.append('avatar', imageFile.files[0]);
-    // console.log(formData);
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(formData),
@@ -130,7 +116,6 @@ const validateInputs = () => {
     const emailValue = email.value.trim();
     const titleValue = title.value.trim();
     const newsLinkValue = newsLink.value.trim();
-    // const imageFileValue = imageFile.value;
 
     if(fullnameValue === '') {
         setError(fullname, "Name is required. Fill in author's first and last name");
@@ -166,11 +151,6 @@ const validateInputs = () => {
         setSuccess(title);
         errorContent.title = false;
     }
-    // if (!imageFileValue || imageFileValue === '') {
-    //     setError(imageFile, 'Image is required');
-    // } else {
-    //     setSuccess(imageFile);
-    // }
 
 };
 

@@ -4,16 +4,12 @@ let cardContainer = document.querySelector(".container-wrap");
 let box = document.querySelector(".box");
 box.classList.remove("box");
 box.classList.add("box-edit");
-// let container = document.querySelector(".container");
 let body = document.querySelector("body");
-//Note: this is not a class but a tag name.
-//That is why it is not referenced with the "." sign
 let close = document.querySelector(".close");
 
 let registerHead = document.querySelector(".register-head");
 let registerBody = document.querySelector(".register-body");
 
-// let first_name = document.querySelector(".first_name");
 let bodyText = document.querySelector(".body-text");
 let btnClose = document.querySelector(".btnClose");
 
@@ -62,10 +58,7 @@ btnClose.addEventListener("click", () => {
 const form = document.getElementById("form");
 const fullname = document.getElementById("fullname");
 const newsTitle = document.getElementById("title");
-// const imageFile = document.getElementById('imageFile');
 const newsLink = document.getElementById("newsLink");
-
-// const url = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${newsId}`
 
 const errorContent = {
   fullname: false,
@@ -90,12 +83,6 @@ form.addEventListener("submit", (e) => {
       url: newsLink.value,
     };
 
-    // formData.append('author', fullname.value);
-    // formData.append('email', email.value);
-    // formData.append('title', title.value);
-    // formData.append('url', newsLink.value);
-    // formData.append('avatar', imageFile.files[0]);
-    // console.log(formData);
     fetch(requestURL, {
       method: "PUT",
       body: JSON.stringify(formData),
@@ -171,9 +158,4 @@ const validateInputs = () => {
     setSuccess(title);
     errorContent.newsTitle = false;
   }
-  // if (!imageFileValue || imageFileValue === '') {
-  //     setError(imageFile, 'Image is required');
-  // } else {
-  //     setSuccess(imageFile);
-  // }
 };

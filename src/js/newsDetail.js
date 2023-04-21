@@ -1,4 +1,3 @@
-// const container = document.querySelector(".container");
 const carousel = document.querySelector(".carousel");
 
 let currentPage = 1;
@@ -16,23 +15,15 @@ let requestURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${ne
 let imageURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/images`;
 
 const generateUI = (items) => {
-    // let card = document.createElement("div");
-    // card.innerHTML = `<h3>${items.data.author}</h3>
-    // <p>${items.data.id}</p>`
-
     for (let item of items.imageData) {
     let carousalImg = document.createElement("img");
     carousalImg.src = item.image;
     carousel.appendChild(carousalImg);}
-    // carousalImg.classList.add("carousel-img");
     slideFunc();
-  
-    // container.appendChild(card);
-};
+  };
 
 
 const getNews = async () => {
-  // container.innerHTML = "";
   let response = await fetch(requestURL);
   let imageResponse = await fetch(imageURL);
   if (!response.ok) {

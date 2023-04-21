@@ -1,6 +1,7 @@
 const container = document.querySelector(".container");
 const prevPageButton = document.querySelector("#prev-page");
 const nextPageButton = document.querySelector("#next-page");
+let deleteNewsBtn;
 
 let currentPage = 1;
 let totalPages;
@@ -18,8 +19,8 @@ const generateUI = (articles) => {
   for (let item of articles) {
     let card = document.createElement("div");
     card.classList.add("news-card");
-    card.innerHTML = `<a href="../pages/news_detail.html?id=${item.id}"><div class="news-image-container">
-    <img src="${item.avatar || "./newspaper.jpg"}" alt="" />
+    card.innerHTML = `<a href="./src/pages/news_detail.html?id=${item.id}"><div class="news-image-container">
+    <img src="${item.avatar || "./src/resources/images/image1.jpg"}" alt="" />
     </div>
     <div class="news-content">
       <div class="news-title">
@@ -28,9 +29,17 @@ const generateUI = (articles) => {
       <div class="news-description">
       ${item.id || ""}
       </div>
-      <a href="${item.url}" target="_blank" class="view-button">Read More</a>
+      <div class="news-down-buttons">
+        <a href="./src/pages/news_detail.html?id=${item.id}" target="_blank" class="view-button view-button-left">
+          Read More
+        </a>
+        <button id= "${item.id}" class="view-button view-button-right">
+          Delete News
+        </button>
+      </div>
     </div></a>`;
     container.appendChild(card);
+    
     if (currentPage == 1) {
       prevPageButton.classList.remove("active");
       prevPageButton.disabled = true;
@@ -66,6 +75,22 @@ const getNews = async () => {
     size: data.length
   };
 };
+
+container.addEventListener("click", async (e) => {
+  deleteNewsBtn = document.getElementById(`${e.target.id}`);
+  deleteNewsBtn.addEventListener("click", async () => {
+    let deleteURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${e.target.id}`;
+    let response = await fetch(deleteURL, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      alert("Data unavailable at the moment. Please try again later");
+      return false;
+    }
+    getPaginatedNews(currentPage);
+  })
+})
+
 
 // Get paginated news
 const getPaginatedNews = async (page) => {

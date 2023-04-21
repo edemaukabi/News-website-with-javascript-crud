@@ -28,11 +28,18 @@
     box-shadow: 0 10px 50px 0 rgba(2, 0, 31, 0.3);
     z-index: 100;
   }
+
   .heading-container h4 {
     font-weight: 600;
     font-size: 40px;
     letter-spacing: 5px;
   }
+
+  .heading-container a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
   .options-container {
     margin: 2em 0 2em 0;
     display: flex;
@@ -92,16 +99,29 @@
   border: none;
   border-radius: 1rem;
   font-size: 12px;
-  /* margin-left: auto;
-  margin-right: 2px; */
   margin: auto 2px auto auto;
   height: fit-content
+  }
+
+  .news-down-buttons {
+    display: flex;
+    margin-left: 0px;
+  }
+
+  .view-button-left {
+    background-color: #119bf6;
+  }
+
+  .view-button-right {
+    margin-left: auto;
+    background-color: #cb202d;
+    border: none;
+    cursor: pointer;
   }
 
   .view-button {
     position: relative;
     text-decoration: none;
-    background-color: #cb202d;
     color: #ffffff;
     width: 7em;
     text-align: center;

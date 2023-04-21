@@ -2,15 +2,14 @@ const commentsWrap = document.querySelector("#comments");
 const commentBox = document.querySelector(".write-comment-wrap");
 const commentForm = document.querySelector(".write-comment-form");
 const commentAddBtn = document.querySelector(".comments-add");
-// const commentRow = document.querySelector(".comment-row");
+let commentCreated = document.querySelector("comment-time")
+
 let commentText;
 let commentUpdateForm;
 let commentTextUpdated;
 let commentOwner;
 let commentEditBtn;
 let commentDeleteBtn;
-let commentCreated = document.querySelector("comment-time")
-
 
 let commentAuthor = document.getElementById('commentAuthor');
 let commentContent = document.getElementById('myComment');
@@ -53,22 +52,6 @@ const getComments = async () => {
   let data = await response.json();
   return data;
 };
-
-// commentAddBtn.addEventListener("click", () => {
-//     commentForm.style.display = "flex";
-// });
-
-// const getComment = async () => {
-//     let response = await fetch(commentURL);
-//     if (!response.ok) {
-//       alert("Data unavailable at the moment. Please try again later");
-//       return false;
-//     }
-//     let data = await response.json();
-//     return data;
-//   };
-
-
 
 const commentErrorContent = {
     fullname: false,
@@ -131,9 +114,7 @@ const submitFunc = e => {
     validateCommentUpdate();
     if (errorContent.commentUpdate) {
         return;
-    }else {
-    let commentFormUpdateData = {"name": commentOwner.firstChild.nextSibling.innerText, "comment": commentTextUpdated.value, "newsId": news_id};
-    }
+    }else {    
     fetch(commentURL, {
         method: 'PUT',
         body: JSON.stringify({"name": commentOwner.firstChild.nextSibling.innerText, "comment": commentTextUpdated.value, "newsId": news_id}),
@@ -157,7 +138,7 @@ const submitFunc = e => {
         }
     }).catch(error => {
         console.log(error);
-    })
+    })}
 };
 
 const commentAddFunc = (e) => {
@@ -246,8 +227,6 @@ const validateCommentInputs = () => {
 
 };
 
-
-
 const commentTime = (timeIn) => {
   const now = new Date();
   const timestamp = new Date(timeIn);
@@ -276,24 +255,4 @@ const commentTime = (timeIn) => {
 const commentInit = async () => {
   let comments = await getComments();
   generateCommentUI(comments);
-};
-
-const waitForElm = (selector) => {
-    return new Promise(resolve => {
-        if (document.querySelector(selector)) {
-            return resolve(document.querySelector(selector));
-        }
-
-        const observer = new MutationObserver(mutations => {
-            if (document.querySelector(selector)) {
-                resolve(document.querySelector(selector));
-                observer.disconnect();
-            }
-        });
-
-        observer.observe(document.body, {
-            childList: true,
-            subtree: true
-        });
-    });
 };
