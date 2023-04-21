@@ -2,33 +2,39 @@ const commentsWrap = document.querySelector("#comments");
 const commentBox = document.querySelector(".write-comment-wrap");
 const commentForm = document.querySelector(".write-comment-form");
 const commentAddBtn = document.querySelector(".comments-add");
-const commentTextUpdated = document.querySelector(".comment-text-update");
-const commentUpdateForm = document.querySelector(".comment-update-form");
+// const commentRow = document.querySelector(".comment-row");
+let commentText;
+let commentUpdateForm;
+let commentTextUpdated;
+let commentOwner;
 let commentEditBtn;
-let commentTextNow;
+let commentDeleteBtn;
+let commentCreated = document.querySelector("comment-time")
 
-const commentAuthor = document.getElementById('commentAuthor');
-const commentContent = document.getElementById('myComment');
+
+let commentAuthor = document.getElementById('commentAuthor');
+let commentContent = document.getElementById('myComment');
 
 let commentsURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/comments`;
-let commentURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/comments`;
+
 
 const generateCommentUI = (articles) => {
   for (let item of articles) {
     let commentRow = document.createElement("div");
     commentRow.classList.add("comment-row");
-    commentRow.innerHTML = `<p class="comment-text">${item.comment}</p>
-    <form class="comment-update-form">
-        <textarea class="comment-text-update" name="commentUpdate" id="commentUpdate">${item.comment}</textarea>
+
+    commentRow.innerHTML = `<p class="comment-text ${item.id}">${item.comment}</p>
+    <form class="comment-update-form ${item.id}">
+        <textarea class="comment-text-update ${item.id}" name="commentUpdate">${item.comment}</textarea>
         <div class="error"></div>
-        <button class="comment-update-btn">Update</button>
+        <button class="comment-update-btn ${item.id}">Update</button>
     </form>
     <div class="comment-details">
-        <p class="comment-author">Commented by <span>${item.name}</span></p>
-        <p class="comment-time">${commentTime(item.createdAt)}
+        <p class="comment-author ${item.id}">Commented by <span>${item.name}</span></p>
+        <p class="comment-time ${item.id}">${commentTime(item.createdAt)}
         <div class="comment-button">
-            <button class="comments-edit">Edit</button>
-            <button class="comments-delete">Delete</button>
+            <button class="comments-edit ${item.id}">Edit</button>
+            <button class="comments-delete ${item.id}">Delete</button>
         </div>
     </div>`;
     commentsWrap.appendChild(commentRow);
@@ -48,19 +54,19 @@ const getComments = async () => {
   return data;
 };
 
-commentAddBtn.addEventListener("click", () => {
+// commentAddBtn.addEventListener("click", () => {
+//     commentForm.style.display = "flex";
+// });
 
-});
-
-const getComment = async () => {
-    let response = await fetch(commentURL);
-    if (!response.ok) {
-      alert("Data unavailable at the moment. Please try again later");
-      return false;
-    }
-    let data = await response.json();
-    return data;
-  };
+// const getComment = async () => {
+//     let response = await fetch(commentURL);
+//     if (!response.ok) {
+//       alert("Data unavailable at the moment. Please try again later");
+//       return false;
+//     }
+//     let data = await response.json();
+//     return data;
+//   };
 
 
 
@@ -70,21 +76,40 @@ const commentErrorContent = {
     commentUpdate: false
 }
 
-commentAddBtn.addEventListener('click', async () => {
+commentsWrap.addEventListener('click', async (e) => {
+    let targetClass = `${(e.target.classList[1])}`
+    commentId = e.target.classList[1];
+    if (e.target.classList.contains('comments-edit')) {
+        commentUpdateForm = document.getElementsByClassName(`comment-update-form ${targetClass}`)[0];
+
+        commentUpdateForm.style.display="flex";
+        commentText = document.getElementsByClassName(`comment-text ${targetClass}`)[0];
+        commentText.style.display="none";
+        commentEditBtn = document.getElementsByClassName(`comments-edit ${targetClass}`)[0];
+        commentEditBtn.style.display="none";
+        commentDeleteBtn = document.getElementsByClassName(`comments-delete ${targetClass}`)[0];
+        commentDeleteBtn.style.display="none";
+
+        commentUpdateForm.addEventListener('submit', submitFunc)
+        commentTextUpdated = document.getElementsByClassName(`comment-text-update ${targetClass}`)[0];
+        commentOwner = document.getElementsByClassName(`comment-author ${targetClass}`)[0];
+    }
+
+    if (e.target.classList.contains('comments-delete')) {
+        let response = await deleteComment(commentId);
+        if (response.ok) {
+            alert('Comment deleted successfully');
+            commentsWrap.lastChild.remove();
+            commentInit()
+        }
+    }})
+
+
+commentAddBtn.addEventListener('click', async (e) => {
     commentBox.style.display="flex";
-    elm = await waitForElm('.comment-update-form');
-    elm.addEventListener('click', submitFunc)
-    console.log(elm)
-    commentEditBtn = await waitForElm('.comments-edit');
-    console.log(commentEditBtn)
-    commentTextNow = await waitForElm('.comment-text');
-    commentEditBtn.addEventListener("click", () => {
-        elm.style.display="flex";
-    });
+    commentForm.addEventListener('submit', commentAddFunc)
 })
 
-
-let elm;
 
 const deleteComment = async (id) => {
     let response = await fetch(`https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/comments/${id}`, {
@@ -94,30 +119,37 @@ const deleteComment = async (id) => {
         alert("Data unavailable at the moment. Please try again later");
         return false;
         }
-    let data = await response.json();
-    return data;
+    return response;
 }
 
 const submitFunc = e => {
     e.preventDefault();
+    let commentId = e.target.classList[1];
+    let commentURL = `https://61924d4daeab5c0017105f1a.mockapi.io/credo/v1/news/${news_id}/comments/${commentId}`;
+    console.log(commentURL)
 
     validateCommentUpdate();
     if (errorContent.commentUpdate) {
         return;
     }else {
-    const commentFormUpdateData = {"name": commentAuthor.value, "comment": commentContent.value, "newsId": news_id};
-
+    let commentFormUpdateData = {"name": commentOwner.firstChild.nextSibling.innerText, "comment": commentTextUpdated.value, "newsId": news_id};
+    }
     fetch(commentURL, {
         method: 'PUT',
-        body: JSON.stringify(commentFormUpdateData),
+        body: JSON.stringify({"name": commentOwner.firstChild.nextSibling.innerText, "comment": commentTextUpdated.value, "newsId": news_id}),
         headers: {
             'Content-Type': 'application/json'
           }
     }).then(response => {
-        if(response.status === 201) {
+        if(response.ok) {
             alert('Comment created successfully');
             form.reset();
-            commentForm.style.display="none";
+            commentUpdateForm.style.display="none";
+            commentText.style.display="block";
+            commentEditBtn.style.display="block";
+            commentDeleteBtn.style.display="block";
+            commentsWrap.lastChild.remove();
+            commentInit()
         } else {
             console.log("comment form data: ", commentFormUpdateData)
             alert('Error creating news');
@@ -126,19 +158,17 @@ const submitFunc = e => {
     }).catch(error => {
         console.log(error);
     })
-    }
 };
 
-commentForm.addEventListener('submit', e => {
+const commentAddFunc = (e) => {
     e.preventDefault();
-
     validateCommentInputs();
     if (errorContent.fullname || errorContent.comment) {
         return;
     }else {
     const commentFormData = {"name": commentAuthor.value, "comment": commentContent.value, "newsId": news_id};
 
-    fetch(commentURL, {
+    fetch(commentsURL, {
         method: 'POST',
         body: JSON.stringify(commentFormData),
         headers: {
@@ -149,6 +179,8 @@ commentForm.addEventListener('submit', e => {
             alert('Comment created successfully');
             form.reset();
             commentBox.style.display="none";
+            commentsWrap.lastChild.remove();
+            commentInit()
         } else {
             console.log("comment form data: ", commentFormData)
             alert('Error creating news');
@@ -158,7 +190,7 @@ commentForm.addEventListener('submit', e => {
         console.log(error);
     })
     }
-});
+};
 
 
 const setCommentError = (element, message) => {
@@ -180,14 +212,13 @@ const setCommentSuccess = element => {
 };
 
 const validateCommentUpdate = () => {
-    console.log("here", commentTextNow)
-    const commentUpdateValue = commentTextNow.value
+    const commentUpdateValue = commentTextUpdated.value
 
     if(commentUpdateValue === '') {
-        setCommentError(commentTextNow, "You can't post an empty comment");
+        setCommentError(commentTextUpdated, "You can't post an empty comment");
         commentErrorContent.commentUpdate = true;
     } else {
-        setCommentSuccess(commentTextNow);
+        setCommentSuccess(commentTextUpdated);
         commentErrorContent.commentUpdate = false;
     }
 };
@@ -265,4 +296,4 @@ const waitForElm = (selector) => {
             subtree: true
         });
     });
-}
+};
