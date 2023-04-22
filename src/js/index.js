@@ -27,7 +27,7 @@ const generateUI = (articles) => {
         ${item.author}
       </div>
       <div class="news-description">
-      ${item.id || ""}
+      ${item.id || ""} ${item.title || ""}
       </div>
       <div class="news-down-buttons">
         <a href="./src/pages/news_detail.html?id=${item.id}" target="_blank" class="view-button view-button-left">

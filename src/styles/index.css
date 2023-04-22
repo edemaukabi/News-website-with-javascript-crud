@@ -72,9 +72,15 @@
     margin: 1em 0;
     border-radius: 15px;
   }
+
   .news-card img {
     border-radius: 15px 15px 0 0;
   }
+
+  .news-card a {
+    text-decoration: none;
+  }
+
   .news-content {
     display: flex;
     flex-direction: column;
